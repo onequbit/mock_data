@@ -6,3 +6,4 @@ Scripts/
 *.egg-info/
 build/
 dist/
+pyvenv.cfg

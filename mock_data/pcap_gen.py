@@ -63,7 +63,6 @@ def writeByteStringToFile(bytestring, filename):
     bitout.write(bytes)
 
 def generatePCAP(message,port,pcapfile): 
-
     udp = udp_header.replace('XX XX',"%04x"%port)
     udp_len = getByteLength(message) + getByteLength(udp_header)
     udp = udp.replace('YY YY',"%04x"%udp_len)
@@ -88,17 +87,11 @@ def splitN(str1,n):
 
 #Calculates and returns the IP checksum based on the given IP Header
 def ip_checksum(iph):
-
     #split into bytes    
     words = splitN(''.join(iph.split()),4)
-
-    csum = 0;
-    for word in words:
-        csum += int(word, base=16)
-
+    csum = sum([int(word, base=16) for word in words]
     csum += (csum >> 16)
     csum = csum & 0xFFFF ^ 0xFFFF
-
     return csum
 
 
